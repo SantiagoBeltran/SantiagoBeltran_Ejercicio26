@@ -3,14 +3,17 @@
 using namespace std;
 
 
+void runge(float t_init, float t_end, float delta_t, float omega, string filename);
 void euler(float t_init, float t_end, float delta_t, float omega, string filename);
+
 int main(){
   float omega=1;
-  euler(0.0, 30.0, 0.01, 1.0, "datos1.dat");
+  euler(0.0, 30.0, 0.001, 1.0, "datos1.dat");
+  runge(0.0, 30.0, 0.01, 1.0, "datos2.dat");  
   return 0;
 }
 
-void euler(float t_init, float t_end, float delta_t, float omega, string filename){
+void runge(float t_init, float t_end, float delta_t, float omega, string filename){
   float t=t_init;
   float y=1.0; 
   float z=0.0;
@@ -41,3 +44,20 @@ void euler(float t_init, float t_end, float delta_t, float omega, string filenam
   }
   outfile.close();
 }
+
+void euler(float t_init, float t_end, float delta_t, float omega, string filename){
+    float t=t_init;
+  float y=1.0; 
+  float z=0.0;
+  float z_0=0.0; 
+    
+  ofstream outfile;
+  outfile.open(filename);
+  while(t<t_end){    
+    outfile << t << " " << z << " "<< y << endl; 
+    z = z - delta_t *omega*omega*y; 
+    y = y + delta_t*z_0;
+    z_0=z;  
+    t = t + delta_t;
+  }    
+}    
