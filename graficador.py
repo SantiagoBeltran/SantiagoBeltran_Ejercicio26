@@ -33,7 +33,7 @@ plt.plot(x2,y2)
 plt.xlabel("Time")
 plt.ylim(-1.5,1.5)
 plt.xlim(0, 4*np.pi)
-plt.title("Leap frog")
+plt.title("Leap Frog")
 
 plt.subplot(3,3,4)
 plt.plot(x,z)
