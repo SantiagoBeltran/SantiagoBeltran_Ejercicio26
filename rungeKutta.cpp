@@ -3,17 +3,19 @@
 using namespace std;
 
 
-void runge(float t_init, float t_end, float delta_t, float omega, string filename);
-void euler(float t_init, float t_end, float delta_t, float omega, string filename);
+void solve_equation_euler(float t_init, float t_end, float delta_t, float omega, string filename);
+void solve_equation_rk4(float t_init, float t_end, float delta_t, float omega, string filename);
+void solve_equation_leapfrog(float t_init, float t_end, float delta_t, float omega, string filename);
 
 int main(){
-  float omega=1;
-  euler(0.0, 30.0, 0.001, 1.0, "datos1.dat");
-  runge(0.0, 30.0, 0.01, 1.0, "datos2.dat");  
+  float omega=1.0;
+  solve_equation_euler(0.0, 10000.0, omega/2, omega, "euler.dat");
+  solve_equation_rk4(0.0, 10000.0, omega/2, omega, "rk4.dat");
+  solve_equation_leapfrog(0.0, 10000.0, omega/2, omega, "leapfrog.dat"); 
   return 0;
 }
 
-void runge(float t_init, float t_end, float delta_t, float omega, string filename){
+void solve_equation_rk4(float t_init, float t_end, float delta_t, float omega, string filename){
   float t=t_init;
   float y=1.0; 
   float z=0.0;
@@ -45,7 +47,7 @@ void runge(float t_init, float t_end, float delta_t, float omega, string filenam
   outfile.close();
 }
 
-void euler(float t_init, float t_end, float delta_t, float omega, string filename){
+void solve_equation_euler(float t_init, float t_end, float delta_t, float omega, string filename){
     float t=t_init;
   float y=1.0; 
   float z=0.0;
@@ -61,3 +63,20 @@ void euler(float t_init, float t_end, float delta_t, float omega, string filenam
     t = t + delta_t;
   }    
 }    
+
+void solve_equation_leapfrog(float t_init, float t_end, float delta_t, float omega, string filename){
+    float t=t_init;
+    float y=1.0;
+    float z=0.0;
+    float z1=0.0;
+    float y1;
+  z1=z-omega*omega*y*delta_t/2; 
+    ofstream outfile;
+  outfile.open(filename);
+    while(t<t_end){
+    outfile << t << " " << z1 << " "<< y << endl; 
+       
+    y=y+z1*delta_t;
+    z1=z1-omega*omega*y*delta_t; 
+    t=t+delta_t;}    
+}
