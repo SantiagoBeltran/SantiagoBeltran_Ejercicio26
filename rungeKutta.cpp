@@ -70,13 +70,14 @@ void solve_equation_leapfrog(float t_init, float t_end, float delta_t, float ome
     float z=0.0;
     float z1=0.0;
     float y1;
-  z1=z-omega*omega*y*delta_t/2; 
+    
     ofstream outfile;
   outfile.open(filename);
     while(t<t_end){
-    outfile << t << " " << z1 << " "<< y << endl; 
-       
+    outfile << t << " " << z << " "<< y << endl; 
+    z1=z-omega*omega*y*delta_t/2; 
     y=y+z1*delta_t;
-    z1=z1-omega*omega*y*delta_t; 
+    z=z1-omega*omega*y*delta_t/2;
     t=t+delta_t;}    
 }
+
