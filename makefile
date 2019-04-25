@@ -1,7 +1,7 @@
-SegundaDerivada.png: datos1.dat datos2.dat
+SegundaDerivada.png: rk4.dat euler.dat leapfrog.dat
 	python graficador.py 
 
-datos1.dat datos2.dat: runge.x
+rk4.dat euler.dat leapfrog.dat: runge.x
 	./runge.x 
 
 runge.x: rungeKutta.cpp
@@ -9,3 +9,4 @@ runge.x: rungeKutta.cpp
 
 clean:
 	rm -rf *.x *.dat *.png
+
